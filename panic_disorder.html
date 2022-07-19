@@ -5,7 +5,7 @@
     <title>Panic disorder</title>
     <style>
         body{
-            font-family: "Arial";
+            font-family: "Arial",serif;
             max-width: 1024px;
             margin: 0 auto;
             color: #424242;
@@ -64,6 +64,29 @@
             padding: 3px;
             border-radius: 8px;
         }
+        button{
+            height: 40px;
+            width: 150px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 2px solid darkolivegreen;
+
+        }
+        button:hover{
+            background-color: white;
+        }
+        button:active{
+            background-color: bisque;
+        }
+        .red_res{
+            color: brown;
+        }
+        .green_res{
+            color: darkgreen;
+        }
+
     </style>
 </head>
 
@@ -141,8 +164,8 @@
             <td class="how_strong2" colspan="3">У меня, наверное, опухоль мозга.</td>
             <td class="how_strong2" colspan="2">
                 <div class="radio_input">
-                    <label for="val12">1</label>
-                    <input type="radio" id="val12" name="ques3" value="1">
+                    <label for="val11">1</label>
+                    <input type="radio" id="val11" name="ques3" value="1">
                 </div>
                 <div class="radio_input">
                     <label for="val12">2</label>
@@ -437,22 +460,24 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <td class="how_strong2" colspan="3">Другие мысли. Запишите их, оцените каждую, впишите сумму этих балов.</td>
             <td class="how_strong2" colspan="2">
                 <div class="radio_input">
                     <input type="text" id="val71" name="ques15" placeholder="Введите сумму">
                 </div>
             </td>
-        </tr>
+        </tr>-->
         <tr>
-            <td></td>
-            <td></td>
+            <td class="how_strong2" colspan="5">
+                <div>
+                    <button>Посчитать?</button>
+                    <h2 class="result">Результат: <span></span></h2>
+                    <h2 class="result2"></h2>
+                </div>
+            </td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
+
         <tr>
             <td colspan="5" class="footer">
                 © Chambless, D. L, Caputo, G. С, Bright, P., & Gallagher, R, "Assessment of Fear in
@@ -462,5 +487,37 @@
         </tr>
 
     </table>
+
+
+
+    <script>
+
+        let button = document.querySelector("button");
+        let res = document.querySelector(".result2");
+        button.addEventListener('click', function () {
+            let count = 0;
+            let elements = document.querySelectorAll("input");
+            for(let element of elements){
+                if(element.checked) {
+                    count += Number(element.value);
+                }
+            }
+            count /= 14;
+            let result = document.querySelector('.result span');
+            result.innerHTML = String(count.toFixed(2));
+            let res_st = document.querySelector('.result2');
+            if(count >= 2.3){
+                res.classList.remove('green_res');
+                res.classList.add('red_res');
+                res_st.innerHTML = 'Имеется агорафобия \\ паническое расстройство'
+            }
+            else if(count <= 2.3){
+                res.classList.remove('red_res');
+                res.classList.add('green_res');
+                res_st.innerHTML = 'Агорафобии \\ панического расстройства - не наблюдается'
+            }
+
+        })
+    </script>
 </body>
 </html>
